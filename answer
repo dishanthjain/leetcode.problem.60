@@ -1,0 +1,37 @@
+Code:
+
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        vector<int> nums;
+        int fact = 1;
+
+        for (int i = 1; i < n; i++)
+            fact *= i;
+
+        for (int i = 1; i <= n; i++)
+            nums.push_back(i);
+
+        k--;
+
+        string result;
+
+        while (n > 0) {
+            int index = k / fact;
+            result += to_string(nums[index]);
+            nums.erase(nums.begin() + index);
+
+            k %= fact;
+            n--;
+
+            if (n > 0)
+                fact /= n;
+        }
+
+        return result;
+    }
+};
+
+Explanation:
+
+Use factorials to calculate how many permutations start with each number. Select the correct number at every position, remove it from the available numbers, and repeat until the kth permutation is formed.
